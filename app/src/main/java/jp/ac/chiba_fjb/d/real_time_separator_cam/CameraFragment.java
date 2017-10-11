@@ -1,23 +1,28 @@
 package jp.ac.chiba_fjb.d.real_time_separator_cam;
 
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class CameraFragment extends Fragment {
+	private PictSave ps = new PictSave();
 
 
 	private CameraPreview mCamera;
-
+	Permission mPermission;
 	public CameraFragment() {
 		// Required empty public constructor
 	}
@@ -40,5 +45,23 @@ public class CameraFragment extends Fragment {
 		mCamera = new CameraPreview();
 		mCamera.setTextureView(textureView);
 		mCamera.open(0);
+
+		//撮影ボタン
+		ImageButton photog = (ImageButton)getView().findViewById(R.id.Photo);
+		photog.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				TextView ms = (TextView) getView().findViewById(R.id.ms);
+				ms.setText("撮影しました");
+				ps.save(mCamera);
+
+			}
+		});
+
+
+
 	}
+
+
+
 }

@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class CameraPreview implements TextureView.SurfaceTextureListener,  Camera.AutoFocusCallback {
-    private Camera mCamera;
+    private static Camera mCamera;
     private int mCameraId;
     private TextureView mTextureView;
     private WindowManager mWindowManager;
@@ -183,8 +183,6 @@ public class CameraPreview implements TextureView.SurfaceTextureListener,  Camer
         mCamera.setParameters(params);
         return true;
     }
-
-
 
 
 }

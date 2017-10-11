@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="gbutton" parent="Base.Widget.AppCompat.Button">
+        <item name="textAllCaps">false</item>
+    </style>
+
 </resources>

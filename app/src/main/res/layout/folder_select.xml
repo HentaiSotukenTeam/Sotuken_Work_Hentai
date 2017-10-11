@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:background="#ffffff">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="フォルダ選択"
+        android:layout_marginTop="50dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:orientation="horizontal"
+        android:layout_weight="0.06"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        >
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="320dp"
+            android:layout_height="97dp">
+
+            <EditText
+                android:id="@+id/folder_serect_te"
+                android:layout_width="match_parent"
+                android:layout_height="84dp"
+                android:hint="フォルダ名を入力してください" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="履歴" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/gbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="GoogleDrive" />
+
+    <Button
+        android:id="@+id/take_fllow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="撮影へ" />
+
+    <TextView
+        android:id="@+id/areart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

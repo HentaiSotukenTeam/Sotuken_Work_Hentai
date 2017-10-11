@@ -17,6 +17,7 @@ public class Permission {
     private ResultListener mListener;
     private Activity mActivity;
 
+
     public void setOnResultListener(ResultListener listener){
         mListener = listener;
     }
