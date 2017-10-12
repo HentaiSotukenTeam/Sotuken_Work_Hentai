@@ -21,15 +21,7 @@ public class MainActivity extends AppCompatActivity {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
 
-      FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-      ft.replace(R.id.layout_main,new HomuhomeFragment());
-      ft.commit();
 
-
-
-
-
-      /*
       //カメラフレーム表示
       //----------------------------------------------------------------------------------
       //Android6.0以降用パーミッション設定
@@ -41,16 +33,17 @@ public class MainActivity extends AppCompatActivity {
                     //パーミッション設定完了後の初期化処理を入れる
                     //フラグメントの切り替え
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.layout_main,new CameraFragment());
+                    ft.replace(R.id.layout_main,new HomuhomeFragment());
                     ft.commit();
                }
       });
       mPermission.requestPermissions(this);
       //----------------------------------------------------------------------------------
-      */
+
 
     }
-    
+
+
     //----------------------------------------------------------------------------------
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -58,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //----------------------------------------------------------------------------------
+
+
+
 
 }
 

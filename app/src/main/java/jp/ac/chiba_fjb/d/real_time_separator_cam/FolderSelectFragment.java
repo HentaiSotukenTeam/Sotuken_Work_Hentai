@@ -1,8 +1,10 @@
 package jp.ac.chiba_fjb.d.real_time_separator_cam;
 
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,12 +16,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.File;
+
 /**
  * Created by kmn on 2017/10/10.
  */
 
 public class FolderSelectFragment extends Fragment {
-    private PictSave ps = new PictSave();
+    private CameraFragment cf = new CameraFragment();
 
 
     @Override
@@ -43,8 +47,17 @@ public class FolderSelectFragment extends Fragment {
                     TextView ms = (TextView) getView().findViewById(R.id.areart);
                     ms.setText("フォルダ名を入力してください");
                 }else {
+                    cf.setFolderName(et.getText().toString());
 
+                    String path = Environment.getExternalStorageDirectory().getPath() + "/"+et.getText().toString()+"/";
+                    File root = new File(path);
+                    if(!root.exists()){
+                        root.mkdir();
+                    }
 
+                    android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.layout_main,new CameraFragment());
+                    ft.commit();
                 }
 
 

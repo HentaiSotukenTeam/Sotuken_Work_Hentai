@@ -164,6 +164,7 @@ public class CameraPreview implements TextureView.SurfaceTextureListener,  Camer
 
         return rotation%2;
     }
+
     //プレビュー画像をファイルに保存
     //実際の保存はフォーカスが
     public boolean save(String fileName){

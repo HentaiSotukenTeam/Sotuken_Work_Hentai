@@ -18,10 +18,12 @@ import android.widget.TextView;
  * A simple {@link Fragment} subclass.
  */
 public class CameraFragment extends Fragment {
-	private PictSave ps = new PictSave();
+
+	int i = 0;
+	private static String foldername = "デフォルト";
 
 
-	private CameraPreview mCamera;
+	private static CameraPreview mCamera;
 	Permission mPermission;
 	public CameraFragment() {
 		// Required empty public constructor
@@ -53,7 +55,7 @@ public class CameraFragment extends Fragment {
 			public void onClick(View v) {
 				TextView ms = (TextView) getView().findViewById(R.id.ms);
 				ms.setText("撮影しました");
-				ps.save(mCamera);
+				HddSave();
 
 			}
 		});
@@ -62,6 +64,16 @@ public class CameraFragment extends Fragment {
 
 	}
 
+	void HddSave(){
+		i++;
+		String savept =  Environment.getExternalStorageDirectory() + "/" +foldername+"/"+foldername+i+".jpg";
+		mCamera.save(savept);
+	}
 
+
+	void setFolderName(String name){
+		i = 0;
+		foldername = name;
+	}
 
 }
