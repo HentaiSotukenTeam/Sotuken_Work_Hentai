@@ -25,6 +25,7 @@ public class CameraFragment extends Fragment {
 	private static String foldername = "デフォルト";
 
 
+
 	private static CameraPreview mCamera;
 	Permission mPermission;
 	public CameraFragment() {
