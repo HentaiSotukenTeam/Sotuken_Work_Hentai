@@ -2,6 +2,7 @@ package jp.ac.chiba_fjb.d.real_time_separator_cam;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
@@ -13,12 +14,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-public class CameraPreview implements TextureView.SurfaceTextureListener,  Camera.AutoFocusCallback {
+public class CameraPreview implements TextureView.SurfaceTextureListener,  Camera.AutoFocusCallback , Camera.PictureCallback {
     private static Camera mCamera;
     private int mCameraId;
     private TextureView mTextureView;
     private WindowManager mWindowManager;
     private String mFileName;
+    Bitmap bm;
 
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
@@ -85,7 +87,7 @@ public class CameraPreview implements TextureView.SurfaceTextureListener,  Camer
     @Override
     public void onAutoFocus(boolean success, Camera camera) {
         try {
-            Bitmap bitmap = mTextureView.getBitmap();
+            Bitmap bitmap = bm;
             FileOutputStream fos = null;
             fos = new FileOutputStream(new File(mFileName));
             // jpegで保存
@@ -97,6 +99,7 @@ public class CameraPreview implements TextureView.SurfaceTextureListener,  Camer
             e.printStackTrace();
         }
     }
+
     public void setPreviewSize(int width,int height,int rot) {
         double aspect;
         if(rot == 0)
@@ -185,5 +188,17 @@ public class CameraPreview implements TextureView.SurfaceTextureListener,  Camer
         return true;
     }
 
+    void takePicture(){
+        mCamera.stopPreview();
+        mCamera.takePicture(null,null,this);
+    }
+
+    int i = 0;
+   @Override
+    public void onPictureTaken(byte[] data, Camera c) {
+       // bm = BitmapFactory.decodeByteArray(data, 0, data.length);
+       //CameraFragment.HddSave();
+       mCamera.startPreview();
+    }
 
 }
