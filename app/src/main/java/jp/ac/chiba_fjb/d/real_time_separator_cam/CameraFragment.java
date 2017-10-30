@@ -61,6 +61,7 @@ public class CameraFragment extends Fragment {
                 ms.setText("撮影しました");
                 mCamera.takePicture();
 
+
             }
         });
 
@@ -80,10 +81,10 @@ public class CameraFragment extends Fragment {
 
 	}
 
-	static void HddSave(){
+	static String HddSave(){
 		i++;
-		String savept =  Environment.getExternalStorageDirectory() + "/" +foldername+"/"+foldername+i+".jpg";
-		mCamera.save(savept);
+		String savept =  Environment.getExternalStorageDirectory() + "/" +foldername+"/"+foldername+String.valueOf(i)+".jpg";
+		return savept;
 	}
 
 

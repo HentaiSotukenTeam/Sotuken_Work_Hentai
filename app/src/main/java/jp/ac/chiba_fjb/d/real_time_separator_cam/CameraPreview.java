@@ -123,6 +123,7 @@ public class CameraPreview implements TextureView.SurfaceTextureListener,  Camer
         }
         Camera.Size s = previewSizes.get(index);
         p.setPreviewSize(s.width, s.height);
+        //p.setPictureSize(1600,1200);
         mCamera.setParameters(p);
         //System.out.format("%d %d %.3f %.3f %.3f\n",s.width, s.height,(double)s.width/s.height,aspect,a);
     }
@@ -189,16 +190,30 @@ public class CameraPreview implements TextureView.SurfaceTextureListener,  Camer
     }
 
     void takePicture(){
-        mCamera.stopPreview();
+        mCamera.setPreviewCallback(null);
         mCamera.takePicture(null,null,this);
     }
 
     int i = 0;
    @Override
     public void onPictureTaken(byte[] data, Camera c) {
-       // bm = BitmapFactory.decodeByteArray(data, 0, data.length);
-       //CameraFragment.HddSave();
+
+       bm = BitmapFactory.decodeByteArray(data, 0, data.length);
+
+       try {
+           FileOutputStream fos = null;
+           fos = new FileOutputStream(new File(CameraFragment.HddSave()));
+           // jpegで保存
+           bm.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+           // 保存処理終了
+           fos.close();
+           System.out.println(mFileName);
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+
        mCamera.startPreview();
+
     }
 
 }

@@ -29,7 +29,8 @@
                 android:id="@+id/folder_serect_te"
                 android:layout_width="match_parent"
                 android:layout_height="84dp"
-                android:hint="フォルダ名を入力してください" />
+                android:hint="フォルダ名を入力してください"
+                android:text="デフォルト" />
 
         </android.support.design.widget.TextInputLayout>
 
