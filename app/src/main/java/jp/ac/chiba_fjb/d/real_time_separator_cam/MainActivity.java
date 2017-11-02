@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                     //パーミッション設定完了後の初期化処理を入れる
                     //フラグメントの切り替え
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.layout_main,new HomuhomeFragment());
+                    ft.replace(R.id.layout_main,new FileSelectFragment());
                     ft.commit();
                }
       });

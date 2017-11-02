@@ -201,10 +201,21 @@ public class CameraPreview implements TextureView.SurfaceTextureListener,  Camer
        bm = BitmapFactory.decodeByteArray(data, 0, data.length);
 
        try {
+
+           int width = bm.getWidth ();
+
+           int height = bm.getHeight ();
+           Matrix matrix = new Matrix ();
+
+           matrix.postRotate (90);
+
+           Bitmap nbm = Bitmap.createBitmap (bm, 0, 0, width, height, matrix, true);
+
+
            FileOutputStream fos = null;
            fos = new FileOutputStream(new File(CameraFragment.HddSave()));
            // jpegで保存
-           bm.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+           nbm.compress(Bitmap.CompressFormat.JPEG, 100, fos);
            // 保存処理終了
            fos.close();
            System.out.println(mFileName);
