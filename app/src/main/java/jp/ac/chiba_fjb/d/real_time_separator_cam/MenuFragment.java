@@ -1,11 +1,8 @@
 package jp.ac.chiba_fjb.d.real_time_separator_cam;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +30,7 @@ public class MenuFragment extends DialogFragment {
                 getDialog().cancel();
                 android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.layout_main,new HomuhomeFragment());
+                CameraFragment.bmList.clear();
                 ft.commit();
             }
         });
@@ -46,6 +44,7 @@ public class MenuFragment extends DialogFragment {
                 getDialog().cancel();
                 android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.layout_main,new FolderSelectFragment());
+                CameraFragment.bmList.clear();
                 ft.commit();
             }
         });
