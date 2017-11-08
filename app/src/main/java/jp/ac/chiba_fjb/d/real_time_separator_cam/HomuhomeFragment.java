@@ -35,6 +35,7 @@ public class HomuhomeFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         Button tf = (Button) getView().findViewById(R.id.take_fllow);
+        Button mf = (Button) getView().findViewById(R.id.make_fllow);
 
         tf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +43,17 @@ public class HomuhomeFragment extends Fragment{
 
                 android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.layout_main,new FolderSelectFragment());
+                ft.commit();
+
+            }
+        });
+
+        mf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.layout_main,new EditFragment());
                 ft.commit();
 
             }
