@@ -12,10 +12,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextureView
-            android:id="@+id/textureView"
+        <FrameLayout
+            android:id="@+id/pictTagLayout"
             android:layout_width="match_parent"
-            android:layout_height="400dp" />
+            android:layout_height="398dp">
+
+            <TextureView
+                android:id="@+id/pictTag"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,7 +63,7 @@
                 android:weightSum="1">
 
                 <Button
-                    android:id="@+id/button9"
+                    android:id="@+id/inpict"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:text="画像挿入" />
