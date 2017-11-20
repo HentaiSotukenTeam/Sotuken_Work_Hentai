@@ -4,6 +4,8 @@ package jp.ac.chiba_fjb.d.real_time_separator_cam;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -24,6 +26,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -38,10 +41,14 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 	Permission mPermission;									//パーミッション
 
 	//画像挿入系
+	static HashMap<View,Integer> ivX = new HashMap<View,Integer>();
+	static HashMap<View,Integer> ivY = new HashMap<View,Integer>();
+	static ArrayList<ImageView> ivList = new ArrayList<ImageView>();
 	static ArrayList<Bitmap> bmList = new ArrayList<Bitmap>();		//挿入画像リスト
 	private FrameLayout fl;									//フレームレイアウト変数
 	public final static int REQUEST_GALLERY = 0;			//リクエストギャラリー
 	Bitmap bitmap;												//ビットマップ
+
 
 	//画像ドラッグ系
     int currentX;   //Viewの左辺座標：X軸
@@ -122,21 +129,32 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 		fl = (FrameLayout)getView().findViewById(R.id.pictTagLayout);
 		for(int i = 0;i<bmList.size();i++){
 			ImageView iv = new ImageView(getActivity());	//イメージビュー作成
+			ivList.add(iv);
 			iv.setImageBitmap(bmList.get(i));				//イメージビューにビットマップを設定
 			float width = bmList.get(i).getWidth();			//画像の横サイズを取得
 			float height = bmList.get(i).getHeight();		//画像の縦サイズを取得
-			iv.setScaleX(height/1500);						//横を1500分の一に
-			iv.setScaleY(width/1500);						//縦を1500分の一に
+			iv.setScaleX(height/3000);						//横を1500分の一に
+			iv.setScaleY(width/3000);						//縦を1500分の一に
 			iv.setOnTouchListener(this);					//タッチされてる間の処理設定
 			fl.addView(iv);									//フレームレイアウトに画像を追加
 		}
 	}
 
 
+	static Canvas makeCanvas(Canvas can){
+		Bitmap bm = null;
+
+
+		for(int i = 0;i<bmList.size();i++){
+			can.drawBitmap(bmList.get(i),ivY.get(ivList.get(i)),ivX.get(ivList.get(i)),null);
+		}
+		return can;
+	}
 
 
 	//カメラプレビューからの呼び出し
 	static String HddSave(){
+
 		//セーブポイント設定
 		i++;
 		String savept =  Environment.getExternalStorageDirectory() + "/" +foldername+"/"+foldername+String.valueOf(i)+".jpg";
@@ -165,7 +183,9 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
                 int diffY = offsetY - y;
 
                 currentX -= diffX;
+				ivX.put(view,currentX);
                 currentY -= diffY;
+				ivY.put(view,currentY);
                 //画像の移動
                 view.layout(currentX, currentY, currentX + view.getWidth(),
                         currentY + view.getHeight());
@@ -218,6 +238,8 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 		} catch (IOException e) {
 			}
 	}
+
+
 
 
 

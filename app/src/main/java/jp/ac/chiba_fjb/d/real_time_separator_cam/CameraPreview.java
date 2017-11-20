@@ -3,6 +3,7 @@ package jp.ac.chiba_fjb.d.real_time_separator_cam;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
@@ -10,6 +11,7 @@ import android.view.TextureView;
 import android.view.WindowManager;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -21,6 +23,7 @@ public class CameraPreview implements TextureView.SurfaceTextureListener,  Camer
     private WindowManager mWindowManager;
     private String mFileName;
     Bitmap bm;
+    static Canvas offScreen;
 
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
@@ -214,8 +217,24 @@ public class CameraPreview implements TextureView.SurfaceTextureListener,  Camer
 
            FileOutputStream fos = null;
            fos = new FileOutputStream(new File(CameraFragment.HddSave()));
+
+           offScreen = new Canvas(nbm);
+           CameraFragment.makeCanvas(offScreen);
+
+           try {
+               //出力ファイルを準備
+               //PNG形式で出力
+               nbm.compress(Bitmap.CompressFormat.PNG, 100, fos);
+               fos.close();
+           } catch (FileNotFoundException e) {
+               e.printStackTrace();
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+
+
            // jpegで保存
-           nbm.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+           //CameraFragment.makeCanvas(offScreen).compress(Bitmap.CompressFormat.JPEG, 100, fos);
            // 保存処理終了
            fos.close();
            System.out.println(mFileName);
