@@ -1,14 +1,8 @@
 package jp.ac.chiba_fjb.d.real_time_separator_cam;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,7 +47,15 @@ public class MainActivity extends AppCompatActivity {
 
     //----------------------------------------------------------------------------------
 
-
+    public void onBackPressed() {
+        //フラグメントをさかのぼる処理
+        int backStackCnt = getSupportFragmentManager().getBackStackEntryCount();
+        if (backStackCnt != 0) {
+            getSupportFragmentManager().popBackStack();
+        }
+        else
+            super.onBackPressed();
+    }
 
 
 }

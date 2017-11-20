@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -21,7 +20,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -55,6 +53,7 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
     int currentY;   //Viewの上辺座標：Y軸
     int offsetX;    //画面タッチ位置の座標：X軸
     int offsetY;    //画面タッチ位置の座標：Y軸
+	private int mSystemUi;
 
 
 	public CameraFragment() {
@@ -69,6 +68,26 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 
 
         return inflater.inflate(R.layout.fragment_camera, container, false);
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		mSystemUi = getView().getSystemUiVisibility();
+		//フルスクリーン
+		getActivity().getWindow().getDecorView().setSystemUiVisibility(
+			View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
+				View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+				View.SYSTEM_UI_FLAG_FULLSCREEN);
+
+
+	}
+
+	@Override
+	public void onStop() {
+		//フルスクリーン解除
+		getActivity().getWindow().getDecorView().setSystemUiVisibility(mSystemUi);
+		super.onStop();
 	}
 
 	@Override
@@ -143,6 +162,7 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 
 	static Canvas makeCanvas(Canvas can){
 		Bitmap bm = null;
+
 
 
 		for(int i = 0;i<bmList.size();i++){

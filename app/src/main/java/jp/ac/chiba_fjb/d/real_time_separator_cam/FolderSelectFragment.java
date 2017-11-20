@@ -1,14 +1,9 @@
 package jp.ac.chiba_fjb.d.real_time_separator_cam;
 
-import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +52,7 @@ public class FolderSelectFragment extends Fragment {
 
                     android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.layout_main,new CameraFragment());
+                    ft.addToBackStack(null);
                     ft.commit();
                 }
 
