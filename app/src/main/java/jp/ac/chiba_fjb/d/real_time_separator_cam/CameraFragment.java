@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -152,8 +153,10 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 			iv.setImageBitmap(bmList.get(i));				//イメージビューにビットマップを設定
 			float width = bmList.get(i).getWidth();			//画像の横サイズを取得
 			float height = bmList.get(i).getHeight();		//画像の縦サイズを取得
-			iv.setScaleX(height/3000);						//横を1500分の一に
-			iv.setScaleY(width/3000);						//縦を1500分の一に
+			iv.setScaleType(ImageView.ScaleType.FIT_CENTER );
+			iv.setImageBitmap(bmList.get(i));				//イメージビューにビットマップを設定
+			iv.setScaleX(width/2500);						//横を1500分の一に
+			iv.setScaleY(height/2500);						//縦を1500分の一に
 			iv.setOnTouchListener(this);					//タッチされてる間の処理設定
 			fl.addView(iv);									//フレームレイアウトに画像を追加
 		}
@@ -163,14 +166,14 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 	static Canvas makeCanvas(Canvas can,float x,float y){
 		Bitmap bm = null;
 
-		float sex = x/(float)fl.getWidth();
-		float sey = y/(float)fl.getHeight();
+		float sex = (float)fl.getWidth()/x;
+		float sey = (float)fl.getHeight()/y;
 
 
 		for(int i = 0;i<bmList.size();i++){
 
-			//can.drawBitmap(bmList.get(i),ivX.get(ivList.get(i))*sex,ivY.get(ivList.get(i))*sey,null);
-			can.drawBitmap(bmList.get(i),1000,1000,null);
+			can.drawBitmap(bmList.get(i),ivX.get(ivList.get(i))*sex,ivY.get(ivList.get(i))*sey,null);
+
 		}
 		return can;
 	}
