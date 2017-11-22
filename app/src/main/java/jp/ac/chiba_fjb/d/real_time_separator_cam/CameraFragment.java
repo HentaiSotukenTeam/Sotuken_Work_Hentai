@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -147,6 +146,10 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 	//挿入画像リストの画像をすべてプレビュー
 	void PrintInsertPict(){
 		fl = (FrameLayout)getView().findViewById(R.id.pictTagLayout);
+
+		int viewWidth = getView().getWidth();
+		int viewHeight = getView().getHeight();
+
 		for(int i = 0;i<bmList.size();i++){
 			ImageView iv = new ImageView(getActivity());	//イメージビュー作成
 			ivList.add(iv);
@@ -155,10 +158,10 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 			float height = bmList.get(i).getHeight();		//画像の縦サイズを取得
 			iv.setScaleType(ImageView.ScaleType.FIT_CENTER );
 			iv.setImageBitmap(bmList.get(i));				//イメージビューにビットマップを設定
-			iv.setScaleX(width/2500);						//横を1500分の一に
-			iv.setScaleY(height/2500);						//縦を1500分の一に
 			iv.setOnTouchListener(this);					//タッチされてる間の処理設定
-			fl.addView(iv);									//フレームレイアウトに画像を追加
+			//画像を画面の1/3に設定
+			FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(viewWidth/3,viewHeight/3);
+			fl.addView(iv,p);									//フレームレイアウトに画像を追加
 		}
 	}
 
