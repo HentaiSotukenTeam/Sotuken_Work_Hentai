@@ -45,7 +45,7 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 	static HashMap<View,Integer> ivY = new HashMap<View,Integer>();
 	static ArrayList<ImageView> ivList = new ArrayList<ImageView>();
 	static ArrayList<Bitmap> bmList = new ArrayList<Bitmap>();		//挿入画像リスト
-	private FrameLayout fl;									//フレームレイアウト変数
+	static private FrameLayout fl;									//フレームレイアウト変数
 	public final static int REQUEST_GALLERY = 0;			//リクエストギャラリー
 	Bitmap bitmap;												//ビットマップ
 
@@ -141,12 +141,16 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 	}
 
 
-	static Canvas makeCanvas(Canvas can){
+	static Canvas makeCanvas(Canvas can,float x,float y){
 		Bitmap bm = null;
 
+		float sex = x/(float)fl.getWidth();
+		float sey = y/(float)fl.getHeight();
 
 		for(int i = 0;i<bmList.size();i++){
-			can.drawBitmap(bmList.get(i),ivY.get(ivList.get(i)),ivX.get(ivList.get(i)),null);
+
+			//can.drawBitmap(bmList.get(i),ivX.get(ivList.get(i))*sex,ivY.get(ivList.get(i))*sey,null);
+			can.drawBitmap(bmList.get(i),1000,1000,null);
 		}
 		return can;
 	}

@@ -219,7 +219,7 @@ public class CameraPreview implements TextureView.SurfaceTextureListener,  Camer
            fos = new FileOutputStream(new File(CameraFragment.HddSave()));
 
            offScreen = new Canvas(nbm);
-           CameraFragment.makeCanvas(offScreen);
+           CameraFragment.makeCanvas(offScreen,offScreen.getWidth(),offScreen.getHeight());
 
            try {
                //出力ファイルを準備
