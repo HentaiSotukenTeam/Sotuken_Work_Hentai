@@ -43,6 +43,7 @@ public class HomuhomeFragment extends Fragment{
 
                 android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.layout_main,new FolderSelectFragment());
+                ft.addToBackStack(null);
                 ft.commit();
 
             }
@@ -83,6 +84,7 @@ public class HomuhomeFragment extends Fragment{
 
             android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.layout_main,new EditFragment());
+            ft.addToBackStack(null);
             ft.commit();
 
         } catch (IOException e) {

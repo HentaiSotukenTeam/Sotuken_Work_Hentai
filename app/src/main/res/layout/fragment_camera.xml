@@ -8,22 +8,51 @@
     <!-- TODO: Update blank fragment layout -->
 
     <FrameLayout
+<<<<<<< HEAD
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+=======
+        android:id="@+id/pictTagLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextureView
+            android:id="@+id/pictTag"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:alpha="0.5"
+        android:gravity="bottom"
+        android:orientation="vertical">
+>>>>>>> oikawa
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+<<<<<<< HEAD
             <FrameLayout
                 android:id="@+id/pictTagLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+=======
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:text="Button"/>
+>>>>>>> oikawa
 
                 <TextureView
                     android:id="@+id/pictTag"
                     android:layout_width="match_parent"
+<<<<<<< HEAD
                     android:layout_height="match_parent" />
             </FrameLayout>
 
@@ -46,12 +75,45 @@
                     android:layout_weight="1"
                     android:text="ストックモード"
                     android:textColor="#ffffff" />
+=======
+                    android:layout_height="45dp"
+                    android:text="メニュー"/>
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/Photo"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_weight="1.00"
+                app:srcCompat="@android:drawable/ic_menu_camera"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <Button
+                    android:id="@+id/inpict"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:text="画像挿入"/>
+
+                <Button
+                    android:id="@+id/button8"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:text="削除"/>
+
+>>>>>>> oikawa
             </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
+<<<<<<< HEAD
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:weightSum="1">
@@ -61,6 +123,17 @@
                 android:layout_height="408dp"
                 android:orientation="horizontal"
                 android:layout_weight="0.40"></LinearLayout>
+=======
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/ms"
+                android:layout_width="191dp"
+                android:layout_height="23dp"
+                android:text="撮影モード"
+                android:textColor="#ffffff"/>
+>>>>>>> oikawa
 
             <LinearLayout
                 android:layout_width="match_parent"
