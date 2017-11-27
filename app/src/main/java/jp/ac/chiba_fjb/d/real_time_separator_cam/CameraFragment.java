@@ -16,11 +16,14 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -30,11 +33,11 @@ import java.util.HashMap;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CameraFragment extends Fragment implements View.OnTouchListener {
+public class CameraFragment extends Fragment implements View.OnTouchListener, CompoundButton.OnCheckedChangeListener {
 
 
 	static int i = 0;											//フォルダ番号
-	private static String foldername = "デフォルト";			//フォルダネーム
+	private static String foldername = "stock";			//フォルダネーム
 	private static CameraPreview mCamera;						//カメラプレビュー
 	Permission mPermission;									//パーミッション
 
@@ -54,6 +57,12 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
     int offsetX;    //画面タッチ位置の座標：X軸
     int offsetY;    //画面タッチ位置の座標：Y軸
 	private int mSystemUi;
+
+	//ストック系
+	Switch sw;
+	static boolean swF = false;
+	String escape;
+	static int stNum = 0;
 
 
 	public CameraFragment() {
@@ -102,6 +111,10 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 		mCamera.setTextureView(textureView);
 		mCamera.open(0);
 
+		//スイッチ
+		sw = (Switch)getView().findViewById(R.id.stsw);
+		sw.setOnCheckedChangeListener(this);
+
 		//撮影ボタン
 		ImageButton photog = (ImageButton)getView().findViewById(R.id.Photo);
         photog.setOnClickListener(new View.OnClickListener() {
@@ -143,8 +156,15 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 
 	}
 
+	static ArrayList<Integer> bmx = new ArrayList<Integer>();
+	static ArrayList<Integer> bmy = new ArrayList<Integer>();
+
 	//挿入画像リストの画像をすべてプレビュー
 	void PrintInsertPict(){
+
+		bmx.clear();
+		bmy.clear();
+
 		fl = (FrameLayout)getView().findViewById(R.id.pictTagLayout);
 
 		int viewWidth = getView().getWidth();
@@ -154,28 +174,32 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 			ImageView iv = new ImageView(getActivity());	//イメージビュー作成
 			ivList.add(iv);
 			iv.setImageBitmap(bmList.get(i));				//イメージビューにビットマップを設定
-			float width = bmList.get(i).getWidth();			//画像の横サイズを取得
-			float height = bmList.get(i).getHeight();		//画像の縦サイズを取得
 			iv.setScaleType(ImageView.ScaleType.FIT_CENTER );
 			iv.setImageBitmap(bmList.get(i));				//イメージビューにビットマップを設定
 			iv.setOnTouchListener(this);					//タッチされてる間の処理設定
 			//画像を画面の1/3に設定
 			FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(viewWidth/3,viewHeight/3);
+
+			bmx.add(viewWidth/3);
+			bmy.add(viewHeight/3);
+
 			fl.addView(iv,p);									//フレームレイアウトに画像を追加
 		}
 	}
 
 
 	static Canvas makeCanvas(Canvas can,float x,float y){
-		Bitmap bm = null;
-
-		float sex = (float)fl.getWidth()/x;
-		float sey = (float)fl.getHeight()/y;
+		float sex = x/(float)fl.getWidth();
+		float sey = y/(float)fl.getHeight();
 
 
 		for(int i = 0;i<bmList.size();i++){
 
-			can.drawBitmap(bmList.get(i),ivX.get(ivList.get(i))*sex,ivY.get(ivList.get(i))*sey,null);
+			int nbmx = (int) (bmx.get(i)*sex);
+			int nbmy = (int) (bmy.get(i)*sey);
+
+            Bitmap bma = Bitmap.createScaledBitmap(bmList.get(i),nbmx,nbmy,false);
+			can.drawBitmap(bma,ivList.get(i).getX()*sex,ivList.get(i).getY()*sey,null);
 
 		}
 		return can;
@@ -184,13 +208,29 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 
 	//カメラプレビューからの呼び出し
 	static String HddSave(){
+		String savept = "";
 
-		//セーブポイント設定
-		i++;
-		String savept =  Environment.getExternalStorageDirectory() + "/" +foldername+"/"+foldername+String.valueOf(i)+".jpg";
+		if(!swF) {
+			//セーブポイント設定
+			i++;
+			savept = Environment.getExternalStorageDirectory() + "/" + foldername + "/" + foldername + String.valueOf(i) + ".jpg";
+		}else{
+			stNum++;
+
+			String path = Environment.getExternalStorageDirectory().getPath() + "/ストック/";
+			File root = new File(path);
+			if(!root.exists()){
+				root.mkdir();
+			}
+
+			savept = Environment.getExternalStorageDirectory() + "/ストック/stock"+ String.valueOf(stNum) + ".jpg";
+		}
+
 		//セーブポイント返却
 		return savept;
 	}
+
+
 
 	//フォルダーネームを受け取り格納
 	void setFolderName(String name){
@@ -213,9 +253,9 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
                 int diffY = offsetY - y;
 
                 currentX -= diffX;
-				ivX.put(view,currentX);
+
                 currentY -= diffY;
-				ivY.put(view,currentY);
+
                 //画像の移動
                 view.layout(currentX, currentY, currentX + view.getWidth(),
                         currentY + view.getHeight());
@@ -270,6 +310,18 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 	}
 
 
+	@Override
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+		if (isChecked == true) {
+			swF = true;
+
+		}else if(isChecked==false){
+			swF = false;
+		}
+
+
+	}
 
 
 

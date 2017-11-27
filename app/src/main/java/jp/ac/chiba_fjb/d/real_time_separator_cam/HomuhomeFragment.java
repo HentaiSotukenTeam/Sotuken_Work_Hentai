@@ -36,6 +36,8 @@ public class HomuhomeFragment extends Fragment{
 
         Button tf = (Button) getView().findViewById(R.id.take_fllow);
         Button kg = (Button) getView().findViewById(R.id.make_fllow);
+        Button quick = (Button) getView().findViewById(R.id.quick);
+        Button Auto = (Button) getView().findViewById(R.id.Auto);
 
         tf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +64,28 @@ public class HomuhomeFragment extends Fragment{
             }
         });
 
+        quick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.layout_main,new CameraFragment());
+                ft.addToBackStack(null);
+                ft.commit();
+
+            }
+        });
+        Auto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.layout_main,new CameraFragment());
+                ft.addToBackStack(null);
+                ft.commit();
+
+            }
+        });
 
             }
 

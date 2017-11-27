@@ -46,19 +46,19 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/Auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
             android:text="自動生成モード" />
 
-        <TextView
-            android:id="@+id/textView3"
+        <Button
+            android:id="@+id/quick"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="50dp"
             android:gravity="center_horizontal|center_vertical"
-            android:text="←スワイプ→" />
+            android:text="クイック撮影" />
 
     </LinearLayout>
 </LinearLayout>
