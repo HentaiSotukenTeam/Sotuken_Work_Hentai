@@ -132,7 +132,18 @@ public class CameraFragment extends Fragment implements View.OnTouchListener, Co
             public void onClick(View v) {
                 TextView ms = (TextView) getView().findViewById(R.id.ms);
                 ms.setText("撮影しました");
-                mCamera.takePicture();	//カメラプレビューのテイクピクチャーに投げる
+				if(swF==false) {
+					mCamera.andF = false;
+					mCamera.takePicture();    //カメラプレビューのテイクピクチャーに投げる
+				}else if(swF==true){
+					mCamera.andF = true;
+					mCamera.takePicture();
+					try{
+						Thread.sleep(5000);
+					}catch (InterruptedException e){
+					}
+					goEdit();
+				}
             }
         });
 
@@ -303,10 +314,17 @@ public class CameraFragment extends Fragment implements View.OnTouchListener, Co
                 offsetY = y;
                 break;
 
+			//-----------------------------------------------------------------------------
+			//-----------------------------------------------------------------------------
+			//-----------------------------------------------------------------------------
+			//ピンチインピンチアウト(凍結中)
 			case MotionEvent.ACTION_POINTER_DOWN:
 				//mView = (ImageView) view;
 				//detector.onTouchEvent(event);
 				break;
+			//-----------------------------------------------------------------------------
+			//-----------------------------------------------------------------------------
+			//-----------------------------------------------------------------------------
 
 			//話されたとき
             case MotionEvent.ACTION_UP:
@@ -361,6 +379,12 @@ public class CameraFragment extends Fragment implements View.OnTouchListener, Co
 	}
 
 
+	void goEdit(){
+		android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+		ft.replace(R.id.layout_main,new EditFragment());
+		ft.addToBackStack(null);
+		ft.commit();
+	}
 
 
 

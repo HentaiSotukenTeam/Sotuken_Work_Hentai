@@ -53,6 +53,8 @@ public class EditFragment extends Fragment implements View.OnTouchListener   {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        fl = (FrameLayout)getView().findViewById(R.id.pictTagLayout);
+
         PrintInsertPict();
 
 
@@ -95,7 +97,6 @@ public class EditFragment extends Fragment implements View.OnTouchListener   {
     HashMap<View,Integer> ivH = new HashMap<View,Integer>();
 
     public void PrintInsertPict(){
-        fl = (FrameLayout)getView().findViewById(R.id.pictTagLayout);
 
         int viewWidth = getView().getWidth();
         int viewHeight = getView().getHeight();

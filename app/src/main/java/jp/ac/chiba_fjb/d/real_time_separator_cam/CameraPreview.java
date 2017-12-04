@@ -198,52 +198,63 @@ public class CameraPreview implements TextureView.SurfaceTextureListener,  Camer
     }
 
     int i = 0;
+    static boolean andF = false;
    @Override
     public void onPictureTaken(byte[] data, Camera c) {
 
        bm = BitmapFactory.decodeByteArray(data, 0, data.length);
+       int width = bm.getWidth();
 
-       try {
+       int height = bm.getHeight();
+       Matrix matrix = new Matrix();
 
-           int width = bm.getWidth ();
+       matrix.postRotate(90);
 
-           int height = bm.getHeight ();
-           Matrix matrix = new Matrix ();
+       Bitmap nbm = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
 
-           matrix.postRotate (90);
-
-           Bitmap nbm = Bitmap.createBitmap (bm, 0, 0, width, height, matrix, true);
-
-
-           FileOutputStream fos = null;
-           fos = new FileOutputStream(new File(CameraFragment.HddSave()));
-
-           offScreen = new Canvas(nbm);
-           CameraFragment.makeCanvas(offScreen,offScreen.getWidth(),offScreen.getHeight());
+       if(!andF) {
 
            try {
-               //出力ファイルを準備
-               //PNG形式で出力
-               nbm.compress(Bitmap.CompressFormat.PNG, 100, fos);
+
+
+
+
+               FileOutputStream fos = null;
+               fos = new FileOutputStream(new File(CameraFragment.HddSave()));
+
+               offScreen = new Canvas(nbm);
+               CameraFragment.makeCanvas(offScreen, offScreen.getWidth(), offScreen.getHeight());
+
+               try {
+                   //出力ファイルを準備
+                   //PNG形式で出力
+                   nbm.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                   fos.close();
+               } catch (FileNotFoundException e) {
+                   e.printStackTrace();
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
+
+
+               // jpegで保存
+               //CameraFragment.makeCanvas(offScreen).compress(Bitmap.CompressFormat.JPEG, 100, fos);
+               // 保存処理終了
                fos.close();
-           } catch (FileNotFoundException e) {
-               e.printStackTrace();
+               System.out.println(mFileName);
            } catch (IOException e) {
                e.printStackTrace();
            }
+       }else if(andF){
+           EditFragment.bmList.add(nbm);
+           CameraFragment cm = new CameraFragment();
 
-
-           // jpegで保存
-           //CameraFragment.makeCanvas(offScreen).compress(Bitmap.CompressFormat.JPEG, 100, fos);
-           // 保存処理終了
-           fos.close();
-           System.out.println(mFileName);
-       } catch (IOException e) {
-           e.printStackTrace();
        }
 
        mCamera.startPreview();
 
     }
+
+
 
 }
