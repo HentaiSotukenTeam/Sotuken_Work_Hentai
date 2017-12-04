@@ -12,6 +12,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,10 +46,19 @@ public class CameraFragment extends Fragment implements View.OnTouchListener, Co
 	static HashMap<View,Integer> ivX = new HashMap<View,Integer>();
 	static HashMap<View,Integer> ivY = new HashMap<View,Integer>();
 	static ArrayList<ImageView> ivList = new ArrayList<ImageView>();
-	static ArrayList<Bitmap> bmList = new ArrayList<Bitmap>();		//挿入画像リスト
+	public static ArrayList<Bitmap> bmList = new ArrayList<Bitmap>();		//挿入画像リスト
 	static private FrameLayout fl;									//フレームレイアウト変数
 	public final static int REQUEST_GALLERY = 0;			//リクエストギャラリー
 	Bitmap bitmap;												//ビットマップ
+
+
+	private ImageView mView;
+	private float scale =1f;
+	private ScaleGestureDetector detector;
+
+
+
+	public static ArrayList<Bitmap> bmList_Edit = new ArrayList<Bitmap>();
 
 
 	//画像ドラッグ系
@@ -156,6 +166,9 @@ public class CameraFragment extends Fragment implements View.OnTouchListener, Co
 
 	}
 
+
+
+
 	static ArrayList<Integer> bmx = new ArrayList<Integer>();
 	static ArrayList<Integer> bmy = new ArrayList<Integer>();
 
@@ -185,6 +198,23 @@ public class CameraFragment extends Fragment implements View.OnTouchListener, Co
 
 			fl.addView(iv,p);									//フレームレイアウトに画像を追加
 		}
+
+		for(int i = 0;i<bmList_Edit.size();i++){
+			ImageView iv = new ImageView(getActivity());	//イメージビュー作成
+			ivList.add(iv);
+			iv.setImageBitmap(bmList_Edit.get(i));				//イメージビューにビットマップを設定
+			iv.setScaleType(ImageView.ScaleType.FIT_CENTER );
+			iv.setImageBitmap(bmList_Edit.get(i));				//イメージビューにビットマップを設定
+			iv.setOnTouchListener(this);					//タッチされてる間の処理設定
+			//画像を画面の1/3に設定
+			FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(viewWidth/3,viewHeight/3);
+
+			bmx.add(viewWidth/3);
+			bmy.add(viewHeight/3);
+
+			fl.addView(iv);									//フレームレイアウトに画像を追加
+		}
+
 	}
 
 
@@ -241,6 +271,7 @@ public class CameraFragment extends Fragment implements View.OnTouchListener, Co
 	//挿入画像ドラッグ処理(オブジェクトがタッチされてる間呼ばれ続ける)
     @Override
     public boolean onTouch(View view, MotionEvent event) {
+
 		//タッチしている位置を取得
         int x = (int) event.getRawX();
         int y = (int) event.getRawY();
@@ -271,6 +302,12 @@ public class CameraFragment extends Fragment implements View.OnTouchListener, Co
                 offsetX = x;
                 offsetY = y;
                 break;
+
+			case MotionEvent.ACTION_POINTER_DOWN:
+				//mView = (ImageView) view;
+				//detector.onTouchEvent(event);
+				break;
+
 			//話されたとき
             case MotionEvent.ACTION_UP:
                 break;
@@ -325,4 +362,52 @@ public class CameraFragment extends Fragment implements View.OnTouchListener, Co
 
 
 
+
+
+	class ScaleListener
+			extends ScaleGestureDetector.SimpleOnScaleGestureListener{
+		@Override
+		public boolean onScale(ScaleGestureDetector detector){
+			scale *= detector.getScaleFactor();
+			mView.setScaleX(scale);
+			mView.setScaleY(scale);
+			return true;
+		}
+	}
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
