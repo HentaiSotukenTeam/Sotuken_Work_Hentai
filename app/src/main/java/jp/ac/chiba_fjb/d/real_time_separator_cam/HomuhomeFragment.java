@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -27,13 +29,14 @@ public class HomuhomeFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.homuhome, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        CameraFragment.bmList.clear();
         Button tf = (Button) getView().findViewById(R.id.take_fllow);
         Button kg = (Button) getView().findViewById(R.id.make_fllow);
         Button quick = (Button) getView().findViewById(R.id.quick);
@@ -64,9 +67,19 @@ public class HomuhomeFragment extends Fragment{
             }
         });
 
+        final CameraFragment cf = new CameraFragment();
+
         quick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                cf.setFolderName("クイック");
+
+                String path = Environment.getExternalStorageDirectory().getPath() + "/"+"クイック";
+                File root = new File(path);
+                if(!root.exists()){
+                    root.mkdir();
+                }
 
                 android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.layout_main,new CameraFragment());
@@ -78,6 +91,13 @@ public class HomuhomeFragment extends Fragment{
         Auto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                cf.setFolderName("千葉");
+                String path = Environment.getExternalStorageDirectory().getPath() + "/"+"千葉";
+                File root = new File(path);
+                if(!root.exists()){
+                    root.mkdir();
+                }
 
                 android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.layout_main,new CameraFragment());

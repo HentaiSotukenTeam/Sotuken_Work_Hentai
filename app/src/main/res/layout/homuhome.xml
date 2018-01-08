@@ -4,61 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/the_back">
 
-    <LinearLayout
-        android:id="@+id/container"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ffffff"
-        android:orientation="vertical"
-        android:weightSum="1">
-
-        <TextView
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="50dp"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="RealTimeSeparatorCam" />
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="127dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="50dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="RealTimeSeparatorCam" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="127dp"
+
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/take_fllow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="86dp"
+                    android:layout_margin="50px"
+                    app:srcCompat="@drawable/satuei" />
+
+                <ImageButton
+                    android:id="@+id/make_fllow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="86dp"
+                    android:layout_margin="50px"
+                    app:srcCompat="@drawable/kakou" />
+
+            </LinearLayout>
 
             <Button
-                android:id="@+id/take_fllow"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:text="撮影" />
+                android:id="@+id/Auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="自動生成モード" />
 
             <Button
-                android:id="@+id/make_fllow"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:text="加工" />
+                android:id="@+id/quick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="50dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="クイック撮影" />
 
         </LinearLayout>
+    </FrameLayout>
 
-        <Button
-            android:id="@+id/Auto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:text="自動生成モード" />
-
-        <Button
-            android:id="@+id/quick"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="50dp"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="クイック撮影" />
-
-    </LinearLayout>
 </LinearLayout>

@@ -12,6 +12,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by kmn on 2017/10/10.
@@ -33,6 +37,21 @@ public class FolderSelectFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Button tf = (Button) getView().findViewById(R.id.take_fllow);
+        Button rb = (Button) getView().findViewById(R.id.rirekibotan);
+
+        /*
+        rb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.layout_main,new RirekiFragment());
+                ft.addToBackStack(null);
+                ft.commit();
+
+            }
+        } );
+        */
 
         tf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +62,23 @@ public class FolderSelectFragment extends Fragment {
                     ms.setText("フォルダ名を入力してください");
                 }else {
                     cf.setFolderName(et.getText().toString());
+
+
+
+                    try{
+
+                        FileOutputStream out = getActivity().openFileOutput( "rireki.txt", MODE_PRIVATE );
+                        String st = et.getText().toString();
+                        out.write(st.getBytes());
+
+                    }catch( IOException e ){
+
+                        e.printStackTrace();
+
+                    }
+
+
+
 
                     String path = Environment.getExternalStorageDirectory().getPath() + "/"+et.getText().toString()+"/";
                     File root = new File(path);

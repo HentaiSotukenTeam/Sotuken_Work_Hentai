@@ -190,6 +190,7 @@ public class CameraFragment extends Fragment implements View.OnTouchListener, Co
 		bmy.clear();
 
 		fl = (FrameLayout)getView().findViewById(R.id.pictTagLayout);
+		
 
 		int viewWidth = getView().getWidth();
 		int viewHeight = getView().getHeight();
