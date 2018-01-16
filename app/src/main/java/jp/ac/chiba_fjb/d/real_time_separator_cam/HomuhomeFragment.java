@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,8 +38,8 @@ public class HomuhomeFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         CameraFragment.bmList.clear();
-        Button tf = (Button) getView().findViewById(R.id.take_fllow);
-        Button kg = (Button) getView().findViewById(R.id.make_fllow);
+        ImageButton tf = (ImageButton) getView().findViewById(R.id.take_fllow);
+        ImageButton kg = (ImageButton) getView().findViewById(R.id.make_fllow);
         Button quick = (Button) getView().findViewById(R.id.quick);
         Button Auto = (Button) getView().findViewById(R.id.Auto);
 

@@ -171,6 +171,20 @@ public class CameraFragment extends Fragment implements View.OnTouchListener, Co
 			}
 		});
 
+		//削除ボタン
+		Button del = (Button)getView().findViewById(R.id.deleteB);
+		del.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// 削除する
+				ivList.clear();
+				android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+				ft.replace(R.id.layout_main,new CameraFragment());
+				ft.addToBackStack(null);
+				ft.commit();
+			}
+		});
+
 
 		//挿入画像プレビュー展開
 		PrintInsertPict();

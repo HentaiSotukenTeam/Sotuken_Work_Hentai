@@ -15,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.isseiaoki.simplecropview.CropImageView;
@@ -58,7 +60,7 @@ public class EditFragment extends Fragment implements View.OnTouchListener   {
         PrintInsertPict();
 
 
-
+        //トリム
         torimu = (Button)getActivity().findViewById(R.id.torimu);
         torimu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +93,29 @@ public class EditFragment extends Fragment implements View.OnTouchListener   {
 
         });
 
+        //保存ボタン
+/* ----------------------------------------------
+       Button save = (Button)getView().findViewById(R.id.SaveB);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView ms = (TextView) getView().findViewById(R.id.situation);
+                ms.setText("保存しました");
+                if(swF==false) {
+                    mCamera.andF = false;
+                    mCamera.takePicture();    //カメラプレビューのテイクピクチャーに投げる
+                }else if(swF==true){
+                    mCamera.andF = true;
+                    mCamera.takePicture();
+                    try{
+                        Thread.sleep(5000);
+                    }catch (InterruptedException e){
+                    }
+                    goEdit();
+                }
+            }
+        });
+ -----------------------------------------------*/
     }
 
 
@@ -118,8 +143,6 @@ public class EditFragment extends Fragment implements View.OnTouchListener   {
             FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(viewWidth/3,viewHeight/3);
             fl.addView(iv);
             iv.setOnTouchListener(this);
-
-
 
         }
     }
@@ -149,7 +172,7 @@ public class EditFragment extends Fragment implements View.OnTouchListener   {
 
 
                 break;
-            //話されたとき
+            //離されたとき
             case MotionEvent.ACTION_UP:
                 break;
             default:

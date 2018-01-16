@@ -67,7 +67,7 @@
                     android:text="画像挿入" />
 
                 <Button
-                    android:id="@+id/button8"
+                    android:id="@+id/deleteB"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:text="削除" />
